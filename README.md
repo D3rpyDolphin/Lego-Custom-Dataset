@@ -1,4 +1,4 @@
-# Lego Dataset for object detection
+# Lego Dataset for Object Detection
 
 This program creates a dataset of legos using the Blender API and a slightly modified version of [Toby Nelson's ImportLDraw](https://github.com/TobyLobster/ImportLDraw). The environment is heavily randomized to help bridge the gap between simulated and real data. This includes the background lighting environment, floor material, lego color, and lego orientation (by doing a short gravity simulation dropping them).
 
