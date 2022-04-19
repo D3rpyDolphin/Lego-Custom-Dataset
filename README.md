@@ -6,4 +6,4 @@ For now, the dataset only includes 3 types of lego pieces but can very easily be
 
 The images can be found [here](https://github.com/D3rpyDolphin/Lego-Custom-Dataset/tree/master/images).
 
-The model training can be found [here](https://github.com/D3rpyDolphin/Lego-Custom-Dataset/blob/master/object_detection_model.ipynb). In the future, being able to visualize the model evaluations would be very useful to determine accuracy. Additionally, I plan to take the output bounding box, crop the input image, and pass it into an image classifier to determine the color of the legos.
+The object detection modeled trained can be found [here](https://github.com/D3rpyDolphin/Lego-Custom-Dataset/blob/master/object_detection_model.ipynb). In the future, being able to visualize the model evaluations would be very useful to determine accuracy. Additionally, I plan to take the output bounding box, crop the input image, and pass it into an image classifier to determine the color of the legos.
