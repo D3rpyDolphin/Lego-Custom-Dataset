@@ -1,7 +1,7 @@
 <annotation>
 	<folder>annotations</folder>
-	<filename>41.jpeg</filename>
-	<path>C:\Users\jared\Documents\Lego Custom Dataset\images\41.jpeg</path>
+	<filename>41.jpg</filename>
+	<path>C:\Users\jared\Documents\Lego Custom Dataset\images\41.jpg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -12,68 +12,55 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>3024</name>
-		<color>320</color>
+		<name>3004</name>
+		<color>14</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>135</xmin>
-			<ymin>65</ymin>
-			<xmax>153</xmax>
-			<ymax>84</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>3024</name>
-		<color>297</color>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>152</xmin>
-			<ymin>130</ymin>
-			<xmax>174</xmax>
-			<ymax>151</ymax>
+			<xmin>101</xmin>
+			<ymin>150</ymin>
+			<xmax>124</xmax>
+			<ymax>171</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3004</name>
-		<color>28</color>
+		<color>70</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>93</xmin>
-			<ymin>71</ymin>
-			<xmax>131</xmax>
-			<ymax>102</ymax>
+			<xmin>121</xmin>
+			<ymin>85</ymin>
+			<xmax>148</xmax>
+			<ymax>116</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3023</name>
-		<color>143</color>
+		<color>15</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>105</xmin>
-			<ymin>149</ymin>
-			<xmax>140</xmax>
-			<ymax>180</ymax>
+			<xmin>73</xmin>
+			<ymin>77</ymin>
+			<xmax>94</xmax>
+			<ymax>108</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3023</name>
-		<color>5</color>
+		<color>72</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>149</xmin>
-			<ymin>198</ymin>
-			<xmax>177</xmax>
-			<ymax>234</ymax>
+			<xmin>49</xmin>
+			<ymin>107</ymin>
+			<xmax>86</xmax>
+			<ymax>140</ymax>
 		</bndbox>
 	</object>
 </annotation>

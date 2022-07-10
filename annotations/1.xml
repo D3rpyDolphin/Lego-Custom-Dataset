@@ -1,7 +1,7 @@
 <annotation>
 	<folder>annotations</folder>
-	<filename>1.jpeg</filename>
-	<path>C:\Users\jared\Documents\Lego Custom Dataset\images\1.jpeg</path>
+	<filename>1.jpg</filename>
+	<path>C:\Users\jared\Documents\Lego Custom Dataset\images\1.jpg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -12,68 +12,68 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>3024</name>
-		<color>6</color>
+		<name>3023</name>
+		<color>72</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>146</xmin>
-			<ymin>165</ymin>
-			<xmax>163</xmax>
-			<ymax>182</ymax>
+			<xmin>130</xmin>
+			<ymin>159</ymin>
+			<xmax>147</xmax>
+			<ymax>174</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3023</name>
-		<color>4</color>
+		<color>71</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>123</xmin>
-			<ymin>135</ymin>
-			<xmax>145</xmax>
-			<ymax>166</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>3024</name>
-		<color>8</color>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>183</xmin>
-			<ymin>106</ymin>
-			<xmax>201</xmax>
-			<ymax>117</ymax>
+			<xmin>154</xmin>
+			<ymin>161</ymin>
+			<xmax>180</xmax>
+			<ymax>192</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3023</name>
-		<color>320</color>
+		<color>14</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>107</xmin>
-			<ymin>94</ymin>
-			<xmax>127</xmax>
-			<ymax>124</ymax>
+			<xmin>98</xmin>
+			<ymin>96</ymin>
+			<xmax>125</xmax>
+			<ymax>113</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3004</name>
-		<color>27</color>
+		<color>7</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>92</xmin>
-			<ymin>148</ymin>
-			<xmax>120</xmax>
-			<ymax>174</ymax>
+			<xmin>86</xmin>
+			<ymin>159</ymin>
+			<xmax>118</xmax>
+			<ymax>188</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>3024</name>
+		<color>71</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>163</xmin>
+			<ymin>86</ymin>
+			<xmax>182</xmax>
+			<ymax>104</ymax>
 		</bndbox>
 	</object>
 </annotation>
