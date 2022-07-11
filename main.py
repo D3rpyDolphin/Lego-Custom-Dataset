@@ -27,6 +27,13 @@ from options import Options
 
 scene = bpy.context.scene
 
+def get_last_index(dir):
+    files = [os.path.join(dir, f) for f in os.listdir(dir)]
+    if(len(files)>0):
+        return int(max(files, key=os.path.getctime).split('\\')[-1].split('.')[0])
+    else:
+        return -1
+
 def find_bounding_boxes(legos):
     boxes = []
     w = Options.img_size[0]
@@ -36,7 +43,7 @@ def find_bounding_boxes(legos):
         mat = lego.ob.matrix_world
         world_bb_vertices = [mat @ Vector(v) for v in lego.ob.bound_box]
 
-        if world_bb_vertices[0].z > -0.5: # under plane in case of poor collisions
+        if world_bb_vertices[0].z > -0.5: # don't count objects that fall through the ground
             co_2d = [world_to_camera_view(scene, scene.camera, v) for v in world_bb_vertices]
             xs, ys, _ = zip(*co_2d) # reformat coords
 
@@ -49,58 +56,65 @@ def find_bounding_boxes(legos):
             
             if outside_frame is False:
                 boxes.append(box)
-
             
     return boxes
+    
+def generate_data(legos_to_sample, total_imgs_per_lego, legos_per_img, img_per_loc, output_dir, continue_training=False):
+    i = get_last_index(os.path.join(output_dir, "images"))+1 # Starts on next index
+    print("There are already {} images".format(i))
 
-def get_last_index():
-    files = os.listdir(Options.image_dir)
-    paths = [os.path.join(Options.image_dir, basename) for basename in files]
-    if (len(paths) > 0):
-        return int(max(paths, y=os.path.getctime).split('\\')[-1].split('.')[0])
-    else:
-        return -1
-
-def main(legos_to_sample, rewrite_current_imgs=False):
-    total_images = Options.imgs_per_lego * len(legos_to_sample) / Options.legos_per_img
-
+    total_images = total_imgs_per_lego * len(legos_to_sample) / legos_per_img
+    
     plane = scene_manager.setup_scene()
     env_node = scene_manager.setup_hdris()
 
-    
-    total_iter = int(total_images / (len(scene_manager.mats) * len(scene_manager.hdris) * Options.img_per_loc)) # generates upto the number of images needed, doesn't add on
+    if (continue_training):
+        # Generates upto the number of images needed, nothing more
+        print("Generating {} images".format(total_images-i))
+        total_iter = math.ceil((total_images-i) / (len(scene_manager.mats) * len(scene_manager.hdris) * img_per_loc)) 
+    else:
+        print("Generating {} images".format(total_images))
+        total_iter = math.ceil(total_images / (len(scene_manager.mats) * len(scene_manager.hdris) * img_per_loc))  
     
     legos = []
-    i = get_last_index()+1 # Starts on next index
-    for _ in range(total_iter-i):
+
+    for _ in range(total_iter):
         # Delete all current legos and spawn new ones
         scene_manager.delete_legos(legos)
-        lego_ids = random.choices(legos_to_sample, k=Options.legos_per_img)
+        lego_ids = random.choices(legos_to_sample, k=legos_per_img)
+        print("Importing legos: [{}]".format(lego_ids))
         legos = scene_manager.create_legos(lego_ids)
         
+        random.shuffle(scene_manager.mats)
         for mat in scene_manager.mats:
             # Randomize ground material, camera position
             scene_manager.set_ground_material(plane, mat)
             scene_manager.randomize_camera_position()
             colors = scene_manager.randomize_lego_materials(legos)
             
+            random.shuffle(scene_manager.hdris)
             for hdri in scene_manager.hdris:
                 # Randomize hdri, lego material (?), and ground mapping
                 scene_manager.set_hdri(hdri, env_node)
                 scene_manager.randomize_ground_mapping(mat)
                 
-                for _ in range(Options.img_per_loc):
+                for _ in range(img_per_loc):
                     # Randomize hdri, lego orientations (is this really needed every loop?)
                     scene_manager.randomize_hdri_rotation()
                     scene_manager.randomize_lego_positions(legos, scene.render.fps, Options.seconds_simulated)
 
                     # Render, find bounding boxes, then export
                     img_name = f'{i}.jpg'
-                    scene_manager.render(img_name)
+                    print("Rendering image {} to {}".format(i, output_dir))
+                    scene_manager.render(img_name, output_dir)
                     boxes = find_bounding_boxes(legos) #TODO add height check for boxes
 
-                    export(lego_ids, boxes, colors, Options.project_dir, img_name, img_dim=Options.img_size)
+                    print("Exporting image {} data to {}".format(i, output_dir))
+                    export(lego_ids, boxes, colors, output_dir, img_name, img_dim=Options.img_size)
                     
                     i += 1
+                    if (i > total_images):
+                        return
 
-main(["3023", "3024", "3004"])
+generate_data(["3023", "3024", "3004"], 100, 3, 1, os.path.join(Options.project_dir, "training data"), True)
+generate_data(["3023", "3024", "3004"], 50, 3, 1, os.path.join(Options.project_dir, "testing data"), True)

@@ -2,9 +2,9 @@ import xml.etree.cElementTree as ET
 import os
 
 # image name should include.png
-def export(labels, boxes, colors, project_dir, img_name: str, img_dim=(256,256,3)):
+def export(labels, boxes, colors, output_dir, img_name: str, img_dim=(256,256,3)):
     annotations_folder_name = "annotations"
-    image_folder = os.path.join(project_dir, "images")
+    image_folder = os.path.join(output_dir, "images")
 
     annotation = ET.Element('annotation')
     ET.SubElement(annotation, 'folder').text = str(annotations_folder_name)
@@ -36,7 +36,7 @@ def export(labels, boxes, colors, project_dir, img_name: str, img_dim=(256,256,3
         ET.SubElement(bndbox, 'ymax').text = str(box[3])
     
     export_name = img_name.split('.')[0]
-    xml_file_name = os.path.join(project_dir, annotations_folder_name, f'{export_name}.xml')
+    xml_file_name = os.path.join(output_dir, annotations_folder_name, f'{export_name}.xml')
     
     tree = ET.ElementTree(annotation)
     ET.indent(tree, space="\t", level=0)

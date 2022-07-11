@@ -19,9 +19,5 @@ class Options:
     sensor_width_var = .4
     angle_var = 5.5 * pi / 180.0
 
-    legos_per_img = 5
-    imgs_per_lego = 100 # Number should be greater than 200
-    img_per_loc = 1
-
     seconds_simulated = 6.0
     simulation_fps = 6
