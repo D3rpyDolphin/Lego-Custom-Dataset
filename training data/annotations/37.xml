@@ -12,42 +12,42 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>3024</name>
+		<name>3004</name>
 		<color>2</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>98</xmin>
-			<ymin>96</ymin>
-			<xmax>118</xmax>
-			<ymax>116</ymax>
+			<xmin>103</xmin>
+			<ymin>69</ymin>
+			<xmax>134</xmax>
+			<ymax>94</ymax>
 		</bndbox>
 	</object>
 	<object>
-		<name>3004</name>
-		<color>0</color>
+		<name>3023</name>
+		<color>15</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>91</xmin>
-			<ymin>139</ymin>
-			<xmax>123</xmax>
-			<ymax>175</ymax>
+			<xmin>138</xmin>
+			<ymin>154</ymin>
+			<xmax>153</xmax>
+			<ymax>174</ymax>
 		</bndbox>
 	</object>
 	<object>
-		<name>3004</name>
-		<color>4</color>
+		<name>3023</name>
+		<color>7</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>157</xmin>
-			<ymin>136</ymin>
-			<xmax>192</xmax>
-			<ymax>162</ymax>
+			<xmin>93</xmin>
+			<ymin>115</ymin>
+			<xmax>124</xmax>
+			<ymax>147</ymax>
 		</bndbox>
 	</object>
 </annotation>

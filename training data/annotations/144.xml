@@ -1,0 +1,40 @@
+<annotation>
+	<folder>annotations</folder>
+	<filename>144.jpg</filename>
+	<path>C:\Users\jared\Documents\Lego Custom Dataset\training data\images\144.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>256</width>
+		<height>256</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>3004</name>
+		<color>72</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>65</xmin>
+			<ymin>199</ymin>
+			<xmax>93</xmax>
+			<ymax>237</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>3023</name>
+		<color>7</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>129</xmin>
+			<ymin>180</ymin>
+			<xmax>159</xmax>
+			<ymax>198</ymax>
+		</bndbox>
+	</object>
+</annotation>

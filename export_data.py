@@ -2,7 +2,7 @@ import xml.etree.cElementTree as ET
 import os
 
 # image name should include.png
-def export(labels, boxes, colors, output_dir, img_name: str, img_dim=(256,256,3)):
+def export_metadata(labels, boxes, colors, output_dir, img_name: str, img_dim=(256,256,3)):
     annotations_folder_name = "annotations"
     image_folder = os.path.join(output_dir, "images")
 
@@ -43,4 +43,4 @@ def export(labels, boxes, colors, output_dir, img_name: str, img_dim=(256,256,3)
     tree.write(xml_file_name, encoding="utf-8")
 
 if __name__ == '__main__':
-    export(['3004'], [(0, 0, 20, 20)], ['pink'], f'C:\\Users\\jared\\Documents\\Lego Custom Dataset\\', 'test.png')
+    export_metadata(['3004'], [(0, 0, 20, 20)], ['pink'], f'C:\\Users\\jared\\Documents\\Lego Custom Dataset\\', 'test.png')

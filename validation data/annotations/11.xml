@@ -1,0 +1,40 @@
+<annotation>
+	<folder>annotations</folder>
+	<filename>11.jpg</filename>
+	<path>C:\Users\jared\Documents\Lego Custom Dataset\validation data\images\11.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>256</width>
+		<height>256</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>3024</name>
+		<color>72</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>145</xmin>
+			<ymin>144</ymin>
+			<xmax>164</xmax>
+			<ymax>157</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>3024</name>
+		<color>2</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>121</xmin>
+			<ymin>104</ymin>
+			<xmax>143</xmax>
+			<ymax>126</ymax>
+		</bndbox>
+	</object>
+</annotation>

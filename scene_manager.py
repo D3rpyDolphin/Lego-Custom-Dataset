@@ -220,7 +220,7 @@ def randomize_lego_materials(legos):
 def render(name, output_dir, debug_viewport=False):
     scene.cycles.seed += 1 # change seed to randomize rendering noise
     
-    scene.render.filepath = os.path.join(output_dir, "images", name)
+    scene.render.filepath = os.path.join(output_dir, name)
     bpy.ops.render.render(write_still = True, use_viewport = debug_viewport) 
 
 if __name__ == '__main__':
