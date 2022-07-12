@@ -31,7 +31,7 @@ scene = bpy.context.scene
 
 def get_last_index(dir):
     files = [os.path.join(dir, f) for f in os.listdir(dir)]
-    if(len(files)>0):
+    if (len(files) > 0):
         return int(max(files, key=os.path.getctime).split('\\')[-1].split('.')[0])
     else:
         return -1
@@ -94,10 +94,12 @@ def generate_data(legos_to_sample, total_imgs_per_lego, legos_per_img, img_per_l
     plane = scene_manager.setup_scene()
     env_node = scene_manager.setup_hdris()
 
-    if (continue_training):
+    if (continue_training and total_images > i):
         # Generates upto the number of images needed, nothing more
         print("Generating {} images".format(total_images-i))
         total_iter = math.ceil((total_images-i) / (len(scene_manager.mats) * len(scene_manager.hdris) * img_per_loc)) 
+    elif (continue_training and total_images <= i):
+        print("No more images need to be generated")
     else:
         print("Generating {} images".format(total_images))
         total_iter = math.ceil(total_images / (len(scene_manager.mats) * len(scene_manager.hdris) * img_per_loc))  
@@ -148,7 +150,7 @@ def generate_data(legos_to_sample, total_imgs_per_lego, legos_per_img, img_per_l
                     export_metadata(lego_ids, boxes, colors, output_dir, img_name, img_dim=Options.img_size)
                     
                     i += 1
-                    if (i > total_images):
+                    if (i == total_images):
                         return
 
 training_data_dir = os.path.join(Options.project_dir, "training data")
