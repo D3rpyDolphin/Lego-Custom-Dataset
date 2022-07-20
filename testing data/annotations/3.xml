@@ -6,11 +6,37 @@
 		<database>Unknown</database>
 	</source>
 	<size>
-		<width>256</width>
-		<height>256</height>
+		<width>512</width>
+		<height>512</height>
 		<depth>3</depth>
 	</size>
 	<segmented>0</segmented>
+	<object>
+		<name>3004</name>
+		<color>7</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>275</xmin>
+			<ymin>131</ymin>
+			<xmax>342</xmax>
+			<ymax>201</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>3024</name>
+		<color>4</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>283</xmin>
+			<ymin>270</ymin>
+			<xmax>316</xmax>
+			<ymax>302</ymax>
+		</bndbox>
+	</object>
 	<object>
 		<name>3004</name>
 		<color>2</color>
@@ -18,49 +44,36 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>111</xmin>
-			<ymin>155</ymin>
-			<xmax>145</xmax>
-			<ymax>194</ymax>
+			<xmin>217</xmin>
+			<ymin>312</ymin>
+			<xmax>279</xmax>
+			<ymax>362</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3004</name>
-		<color>71</color>
+		<color>19</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>157</xmin>
-			<ymin>62</ymin>
-			<xmax>176</xmax>
-			<ymax>95</ymax>
+			<xmin>232</xmin>
+			<ymin>214</ymin>
+			<xmax>291</xmax>
+			<ymax>252</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3023</name>
-		<color>72</color>
+		<color>0</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>61</xmin>
-			<ymin>89</ymin>
-			<xmax>94</xmax>
-			<ymax>121</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>3023</name>
-		<color>14</color>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>21</xmin>
-			<ymin>7</ymin>
-			<xmax>64</xmax>
-			<ymax>49</ymax>
+			<xmin>160</xmin>
+			<ymin>304</ymin>
+			<xmax>221</xmax>
+			<ymax>347</ymax>
 		</bndbox>
 	</object>
 </annotation>

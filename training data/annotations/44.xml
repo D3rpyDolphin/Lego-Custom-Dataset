@@ -6,48 +6,74 @@
 		<database>Unknown</database>
 	</source>
 	<size>
-		<width>256</width>
-		<height>256</height>
+		<width>512</width>
+		<height>512</height>
 		<depth>3</depth>
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>3004</name>
-		<color>19</color>
+		<name>3023</name>
+		<color>2</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>144</xmin>
-			<ymin>11</ymin>
-			<xmax>186</xmax>
-			<ymax>53</ymax>
+			<xmin>172</xmin>
+			<ymin>204</ymin>
+			<xmax>242</xmax>
+			<ymax>253</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>3024</name>
+		<color>14</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>145</xmin>
+			<ymin>168</ymin>
+			<xmax>191</xmax>
+			<ymax>213</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3023</name>
-		<color>71</color>
+		<color>14</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>104</xmin>
-			<ymin>140</ymin>
-			<xmax>137</xmax>
-			<ymax>162</ymax>
+			<xmin>126</xmin>
+			<ymin>239</ymin>
+			<xmax>174</xmax>
+			<ymax>279</ymax>
 		</bndbox>
 	</object>
 	<object>
 		<name>3023</name>
-		<color>4</color>
+		<color>0</color>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>118</xmin>
-			<ymin>63</ymin>
-			<xmax>152</xmax>
-			<ymax>88</ymax>
+			<xmin>289</xmin>
+			<ymin>203</ymin>
+			<xmax>341</xmax>
+			<ymax>273</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>3023</name>
+		<color>7</color>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>395</xmin>
+			<ymin>144</ymin>
+			<xmax>439</xmax>
+			<ymax>211</ymax>
 		</bndbox>
 	</object>
 </annotation>

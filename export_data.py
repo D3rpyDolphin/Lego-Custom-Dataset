@@ -22,18 +22,19 @@ def export_metadata(labels, boxes, colors, output_dir, img_name: str, img_dim=(2
     ET.SubElement(annotation, 'segmented').text = '0'
 
     for box, label, color in zip(boxes, labels, colors):
-        object = ET.SubElement(annotation, 'object')
-        ET.SubElement(object, 'name').text = label
-        ET.SubElement(object, 'color').text = color
-        ET.SubElement(object, 'pose').text = 'Unspecified'
-        ET.SubElement(object, 'truncated').text = '0'
-        ET.SubElement(object, 'difficult').text = '0'
+        if box is not None:
+            object = ET.SubElement(annotation, 'object')
+            ET.SubElement(object, 'name').text = label
+            ET.SubElement(object, 'color').text = color
+            ET.SubElement(object, 'pose').text = 'Unspecified'
+            ET.SubElement(object, 'truncated').text = '0'
+            ET.SubElement(object, 'difficult').text = '0'
 
-        bndbox = ET.SubElement(object, 'bndbox')
-        ET.SubElement(bndbox, 'xmin').text = str(box[0]) 
-        ET.SubElement(bndbox, 'ymin').text = str(box[1])
-        ET.SubElement(bndbox, 'xmax').text = str(box[2])
-        ET.SubElement(bndbox, 'ymax').text = str(box[3])
+            bndbox = ET.SubElement(object, 'bndbox')
+            ET.SubElement(bndbox, 'xmin').text = str(box[0]) 
+            ET.SubElement(bndbox, 'ymin').text = str(box[1])
+            ET.SubElement(bndbox, 'xmax').text = str(box[2])
+            ET.SubElement(bndbox, 'ymax').text = str(box[3])
     
     export_name = img_name.split('.')[0]
     xml_file_name = os.path.join(output_dir, annotations_folder_name, f'{export_name}.xml')

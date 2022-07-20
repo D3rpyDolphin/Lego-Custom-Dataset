@@ -6,13 +6,14 @@ import random
 import rebrick
 import json
 
+from mathutils import Matrix
+
 import ldraw_import
 from options import Options
 
 from dotenv import load_dotenv
 load_dotenv() # loads env file, dont want to show API key lol
 
-# TODO replace all bpy.ops
 scene = bpy.context.scene
 
 def setup_scene():
@@ -35,8 +36,8 @@ def setup_scene():
     ldraw_import.Options.setRenderSettings = False            # Set render percentage, denoising
     ldraw_import.Options.positionCamera = False               # Position the camera where so we get the whole object in shot
 
-
-
+    ldraw_import.LegoCache.clearCache()
+    
     scene.rigidbody_world.enabled = True
 
     # create camera
@@ -55,17 +56,19 @@ def setup_scene():
     # create plane object and add physics
     bpy.ops.mesh.primitive_plane_add(size=30.0)
     plane = bpy.context.object
-    bpy.ops.rigidbody.object_add()
+    scene.rigidbody_world.collection.objects.link(plane)
     plane.rigid_body.type = 'PASSIVE'
     #plane.rigid_body.collisions_shape = 'MESH'
     plane.rigid_body.restitution = .5
 
     scene.render.fps = Options.simulation_fps
+    scene.frame_start = 0
+    scene.frame_end = int(scene.render.fps * Options.seconds_simulated)
     bpy.context.scene.frame_set(0)
 
-    scene.cycles.use_adaptive_sampling = False
-    scene.cycles.use_denoising = False
+    scene.cycles.use_denoising = True
     scene.render.image_settings.file_format = 'JPEG'
+
     scene.cycles.seed = 0
     return plane
 
@@ -104,14 +107,18 @@ def setup_hdris():
 
     # Link all nodes
     links = node_tree.links
-    link = links.new(node_texture_coord.outputs["Object"], node_mapping.inputs["Vector"])
-    link = links.new(node_mapping.outputs["Vector"], node_environment.inputs["Vector"])
-    link = links.new(node_environment.outputs["Color"], node_output.inputs["Surface"])
+    links.new(node_texture_coord.outputs["Object"], node_mapping.inputs["Vector"])
+    links.new(node_mapping.outputs["Vector"], node_environment.inputs["Vector"])
+    links.new(node_environment.outputs["Color"], node_output.inputs["Surface"])
 
     return node_environment
 def set_hdri(hdri, node_environment):
-    # TODO, reuse image if previously loaded
-    node_environment.image = bpy.data.images.load(os.path.join(Options.hdri_dir, hdri)) # Relative path   
+    image = bpy.data.images.get(hdri)
+    if image is None:
+        # Create image object
+        image = bpy.data.images.load(os.path.join(Options.hdri_dir, hdri))
+    node_environment.image = image
+
 def randomize_hdri_rotation():
     node_tree = scene.world.node_tree
     tree_nodes = node_tree.nodes
@@ -121,7 +128,7 @@ def randomize_hdri_rotation():
     
 # Ground
 mats = ["carpet", "paper", "tile1", "tile2", "wood"]
-def set_ground_material(plane, mat_name): 
+def set_ground_material(mat_name, plane): 
     mat = bpy.data.materials[mat_name] 
     if plane.data.materials:
         # assign to 1st material slot
@@ -129,8 +136,8 @@ def set_ground_material(plane, mat_name):
     else:
         # no slots
         plane.data.materials.append(mat)
-def randomize_ground_mapping(mat_name):
-    mat = bpy.data.materials[mat_name] 
+def randomize_ground_mapping(plane):
+    mat = plane.active_material
     nodes = mat.node_tree.nodes
     map_node = nodes.get('Mapping')
     map_node.inputs['Location'].default_value = [random.uniform(-Options.location_mapping_range/2.0, Options.location_mapping_range/2.0) for i in range(3)] # Centered at (0,0,0)
@@ -160,38 +167,29 @@ def create_legos(part_ids):
     legos = []
     for part_id in part_ids:
         path = os.path.join(ldraw_import.Options.ldrawDirectory, "parts", part_id + '.dat')
-        lego = ldraw_import.loadFromFile(None, path, isFullFilepath=True)
-        bpy.ops.object.origin_set(type='ORIGIN_CENTER_OF_MASS', center='MEDIAN')
+        lego = ldraw_import.loadFromFile(path, isFullFilepath=True)
         legos.append(lego)
     return legos
-def randomize_lego_orientations(lego, spawn_dist = 2.5, height_avg = 8, height_var=5.0):
+
+def randomize_lego_orientation(lego, spawn_dist = 2.5, height_avg = 8, height_var=5.0):
     lego.ob.location[0] = random.uniform(-spawn_dist, spawn_dist)
     lego.ob.location[1] = random.uniform(-spawn_dist, spawn_dist)
     lego.ob.location[2] = height_avg + random.uniform(-height_var, height_var) # TODO height spawn based on size
     lego.ob.rotation_euler = [random.uniform(-math.pi, math.pi) for _ in range(3)]
-def randomize_lego_positions(legos, fps, seconds):
+def randomize_lego_positions(legos):
     scene = bpy.context.scene
-    total_frames = int(fps * seconds)
 
+    bpy.context.scene.frame_set(0)
     for lego in legos:
-        randomize_lego_orientations(lego)
-        
-        if (scene.rigidbody_world.collection.objects.find(lego.ob.name) == -1):
-            scene.rigidbody_world.collection.objects.link(lego.ob) 
+        randomize_lego_orientation(lego)
+        if (scene.rigidbody_world.collection.objects.get(lego.ob.name) is None):
+            scene.rigidbody_world.collection.objects.link(lego.ob)
         lego.ob.rigid_body.mass = .0025
     
     # Stop after sec seconds
-    for i in range(0, total_frames+1):
-        bpy.context.scene.frame_set(i)
+    for i in range(scene.frame_start, scene.frame_end):
+        scene.frame_set(i)
     
-    for lego in legos:
-        lego.ob.select_set(True) 
-        scene.rigidbody_world.collection.objects.unlink(lego.ob) 
-    
-    bpy.ops.object.visual_transform_apply() # TODO check if this is slow
-    bpy.ops.object.select_all(action='DESELECT')
-    
-    bpy.context.scene.frame_set(0)
 def generate_color_list(id, part_threshold=0):
     # Get color data from rebrickable
     # TODO some are invalid colors
@@ -222,6 +220,3 @@ def render(name, output_dir, debug_viewport=False):
     
     scene.render.filepath = os.path.join(output_dir, name)
     bpy.ops.render.render(write_still = True, use_viewport = debug_viewport) 
-
-if __name__ == '__main__':
-    print(generate_color_list('3004'))

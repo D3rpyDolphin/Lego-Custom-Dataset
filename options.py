@@ -7,7 +7,7 @@ class Options:
     parts_dir = os.path.join(ldraw_dir, 'parts')
     hdri_dir = os.path.join(project_dir, 'HDRIs')
     
-    img_size = (256, 256, 3)
+    img_size = (512, 512, 3)
 
     location_mapping_range = 4
     scale_mapping_min = 40

@@ -2,7 +2,6 @@
 
 from options import Options
 import xml.etree.ElementTree as ET
-import shutil
 import os
 import re
 
@@ -36,5 +35,6 @@ def move_cropped_images(dir):
                 os.makedirs(end_dir)
             os.rename(prev_dir, os.path.join(end_dir, cropped_image))
 
-move_cropped_images(os.path.join(Options.project_dir, "training data"))
-move_cropped_images(os.path.join(Options.project_dir, "testing data"))
+if (__name__ == '__main__'):
+    move_cropped_images(os.path.join(Options.project_dir, "training data"))
+    move_cropped_images(os.path.join(Options.project_dir, "testing data"))

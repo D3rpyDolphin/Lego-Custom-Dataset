@@ -3155,6 +3155,28 @@ class BlenderMaterials:
         BlenderMaterials.__createBlenderLegoSpeckleNodeGroup()
         BlenderMaterials.__createBlenderLegoMilkyWhiteNodeGroup()
 
+class LegoCache:
+    __cache = {}
+
+    def getCachedCopy(key):
+        if key in LegoCache.__cache:
+            copy = LegoCache.__cache[key].copy()
+            copy.ob.hide_set(False)
+            copy.ob.hide_render = False
+            return copy
+        return None
+
+    def addToCache(key, lego):
+        copy = lego.copy()
+        copy.ob.hide_set(True) # Hide object so it doesn't render
+        copy.ob.hide_render = True
+        LegoCache.__cache[key] = copy
+
+    def clearCache():
+        LegoCache.__cache = {}
+
+
+
 class Lego:
     def __init__(self, name, ob, geometry):
         self.name = name
@@ -3163,6 +3185,12 @@ class Lego:
         self.geometry = geometry
         self.color = None
     
+    def copy(self):
+        ob_copy = self.ob.copy()
+        ob_copy.data = self.ob.data.copy()
+        bpy.context.scene.collection.objects.link(ob_copy)
+        return Lego(self.name, ob_copy, self.geometry)
+
     # color is string
     # name of part
     def change_material(self, color):
@@ -3190,9 +3218,9 @@ class Lego:
             material = BlenderMaterials.getMaterial(faceInfo.faceColour, False)
             if material is not None:
                 if "Lego.isTransparent" in material:
-                        if material["Lego.isTransparent"]:
-                            self.ob["Lego.isTransparent"] = True
-                            break
+                    if material["Lego.isTransparent"]:
+                        self.ob["Lego.isTransparent"] = True
+                        break
 
 # **************************************************************************************
 def point_to_line_segment_dist_squared(p, a, b):
@@ -4264,12 +4292,18 @@ def iterateCameraPosition(camera, render, vcentre3d, moveCamera):
     return 0.0
 
 # **************************************************************************************
-def loadFromFile(context, filename, isFullFilepath=True):
+def loadFromFile(filename, isFullFilepath=True):
+    lego_name = os.path.basename(filename)
+    lego = LegoCache.getCachedCopy(lego_name)
+    if lego is not None:
+        debugPrint("Adding cached lego")
+        return lego
+
     global globalCamerasToAdd
     global globalContext
 
     globalCamerasToAdd = []
-    globalContext = context
+    globalContext = None
 
     # Make sure we have the latest configuration, including the latest ldraw directory 
     # and the colours derived from that.
@@ -4440,6 +4474,7 @@ def loadFromFile(context, filename, isFullFilepath=True):
 
     # Select the newly created root object
     selectObject(rootOb)
+    bpy.ops.object.origin_set(type='ORIGIN_CENTER_OF_MASS', center='MEDIAN')
 
     # Get existing scene names
     sceneObjectNames = [x.name for x in scene.objects]
@@ -4493,5 +4528,6 @@ def loadFromFile(context, filename, isFullFilepath=True):
         setupRealisticLook()
 
     debugPrint("Load Done")
-    return rootLego
 
+    LegoCache.addToCache(lego_name, rootLego)
+    return rootLego
